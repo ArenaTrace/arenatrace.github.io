@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arenatrace.github.io/sitemap.xml
