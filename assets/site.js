@@ -87,3 +87,19 @@
 
   apply();
 })();
+
+// LP。読み進めたところだけ現れる。IntersectionObserver が無い環境では最初から出す。
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(els, function (el) { el.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+})();
