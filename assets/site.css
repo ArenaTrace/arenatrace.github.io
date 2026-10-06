@@ -236,9 +236,9 @@ a { color: inherit; }
 .shots-rail {
   display: flex; gap: 18px; overflow-x: auto; padding-bottom: 14px;
   scroll-snap-type: x mandatory; scrollbar-width: none;
-  /* 枚数が少ないときは中央に。safe を付けると、あふれた側が切れない */
-  justify-content: safe center;
 }
+/* 中央寄せ（justify-content）は横スクロールと競合し、左端の要素へ
+   到達できなくなる。左揃えのまま、はみ出した分をスクロールで見せる。 */
 .shots-rail::-webkit-scrollbar { display: none; }
 .shot { margin: 0; flex: 0 0 auto; width: 215px; scroll-snap-align: center; }
 .shot img {
