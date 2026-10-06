@@ -14,6 +14,7 @@
   --accent-bg:  #FBEEDF;
   --navy:       #12111C;
   --serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans-disp: "Noto Sans JP", "Hiragino Sans", sans-serif;
   --sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
@@ -214,14 +215,19 @@ a { color: inherit; }
 }
 .lp .foot { background: #0A0912; }
 
-.lp-hero { padding: 76px 0 64px; text-align: center; }
-.appicon { width: 104px; height: 104px; border-radius: 23px; display: block; margin: 0 auto 26px; }
+/* 中央寄せをやめ、左の見出しと右の本文に分ける。
+   日本語の大見出しは字間を大きく開けると、詰まった印象が消える。 */
+.lp-hero { padding: 92px 0 84px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 56px; align-items: end; }
+.lp-hero .kicker { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+.appicon { width: 40px; height: 40px; border-radius: 9px; display: block; }
 .lp-hero h1 {
-  font-family: var(--serif); font-weight: 700; font-size: clamp(36px, 7.4vw, 64px);
-  line-height: 1.26; margin: 0 0 20px; letter-spacing: .03em;
+  font-family: var(--sans-disp); font-weight: 700;
+  font-size: clamp(34px, 6.6vw, 62px);
+  line-height: 1.42; margin: 0; letter-spacing: .16em; text-indent: .16em;
 }
-.lp-hero .lede { margin-inline: auto; text-align: center; font-size: 16px; }
-.cta { margin: 36px 0 0; display: flex; flex-direction: column; align-items: center; gap: 11px; }
+.lp-hero .lede { font-size: 15.5px; line-height: 2.05; letter-spacing: .02em; margin: 0; }
+.cta { margin: 32px 0 0; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .btn {
   display: inline-block; padding: 14px 34px; border-radius: 999px;
   background: var(--accent); color: #1A1206; font-weight: 700; font-size: 15.5px;
@@ -253,24 +259,29 @@ a { color: inherit; }
 .lp-stats { border-top: 0; }
 .lp-stats > div { border-right-color: var(--rule); }
 
-.feats { padding: 64px 0 24px; display: grid; gap: 52px; }
+.feats { padding: 84px 0 36px; display: grid; gap: 66px; }
 .feat { max-width: 60ch; }
 .feat h2 {
-  font-family: var(--serif); font-size: clamp(22px, 3.4vw, 30px); font-weight: 700;
-  margin: 0 0 12px; letter-spacing: .02em; display: flex; align-items: baseline; gap: 16px;
+  font-family: var(--sans-disp); font-size: clamp(20px, 3.1vw, 27px); font-weight: 700;
+  margin: 0 0 14px; letter-spacing: .12em; display: flex; align-items: baseline; gap: 18px;
 }
 .feat h2 .n {
   font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .14em;
   color: var(--accent); font-variant-numeric: tabular-nums;
 }
-.feat p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+.feat p { margin: 0; color: var(--ink-soft); font-size: 15.5px; line-height: 2.0; }
 
-.privacy, .cross, .plus, .tail { padding: 62px 0; border-top: 1px solid var(--rule); }
+.privacy, .cross, .plus, .tail { padding: 86px 0; border-top: 1px solid var(--rule); }
 .privacy h2, .cross h2, .plus h2, .tail h2 {
-  font-family: var(--serif); font-size: clamp(24px, 4.2vw, 36px); font-weight: 700;
-  margin: 0 0 16px; letter-spacing: .02em; line-height: 1.34;
+  font-family: var(--sans-disp); font-size: clamp(22px, 3.8vw, 33px); font-weight: 700;
+  margin: 0 0 20px; letter-spacing: .1em; line-height: 1.58;
 }
-.privacy p, .cross p, .plus p { margin: 0 0 12px; max-width: 58ch; color: var(--ink-soft); }
+/* 英語の小ラベルを上に添える。日本語だけだと塊に見える */
+.privacy h2 .en, .cross h2 .en, .plus h2 .en, .tail h2 .en {
+  display: block; font-size: 11.5px; font-weight: 600; letter-spacing: .22em;
+  color: var(--accent); margin-bottom: 14px; text-transform: uppercase;
+}
+.privacy p, .cross p, .plus p { margin: 0 0 14px; max-width: 56ch; color: var(--ink-soft); line-height: 2.0; }
 .fine { font-size: 12.5px; color: var(--ink-faint); line-height: 1.8; }
 .cross { background: var(--paper-deep); }
 .plusfeat { margin: 0 0 26px; padding: 0; list-style: none; max-width: 52ch; }
@@ -289,9 +300,16 @@ a { color: inherit; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 30px; align-items: start; }
+}
 @media (max-width: 600px) {
-  .lp-hero { padding: 52px 0 44px; }
-  .appicon { width: 88px; height: 88px; }
+  .lp-hero { padding: 54px 0 48px; }
+  .lp-hero h1 { letter-spacing: .1em; text-indent: .1em; line-height: 1.5; }
+  .privacy h2, .cross h2, .plus h2, .tail h2 { letter-spacing: .06em; }
+  .feat h2 { letter-spacing: .08em; gap: 12px; }
+  .feats { padding: 56px 0 20px; gap: 48px; }
+  .privacy, .cross, .plus, .tail { padding: 58px 0; }
   .shot { width: 178px; }
   .feats { padding: 48px 0 16px; gap: 40px; }
   .privacy, .cross, .plus, .tail { padding: 46px 0; }
